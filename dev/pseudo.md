@@ -2,7 +2,14 @@
 * function that input data into database
 * function that will delete article from data
 
-*views*
+# *views*
 
 
+# *models*
 
+### Article
+* Headline
+* Summary
+* URL
+
+### Comments (Associated with Article)
