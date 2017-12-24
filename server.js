@@ -4,7 +4,9 @@ const mongoose = require("mongoose")
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => res.send('Hello World!'))
+// Linking routes
+require("./routes/html-routes")(app);
+
 
 const server = app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
 module.exports = server;
