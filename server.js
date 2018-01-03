@@ -20,6 +20,8 @@ app.use(logger('dev'));
 
 // Linking routes
 require("./routes/html-routes")(app);
+require("./routes/api-routes")(app);
+
 
 
 const server = app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
