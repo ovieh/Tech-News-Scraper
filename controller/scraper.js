@@ -16,7 +16,7 @@ const parseHtml = html => {
 
     const articles = [];
     $('article.story').each((i, e) => articles.push(parseArticle(e)));
-    console.log(articles);
+    console.log("scraped");
     return articles;
 }
 

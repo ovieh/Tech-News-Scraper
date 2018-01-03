@@ -12,7 +12,8 @@ module.exports = app => {
             Article.create(data, (err, newArticles) => {
                 if (err) console.log(err.message);
                 res.json(newArticles);
-            })
+                console.log("newArticles");
+            });
         })
         .catch( err => res.status(400).send(err) );
     });

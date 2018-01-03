@@ -5,7 +5,6 @@ const articleSchema = new Schema ({
     headline: String,
     summary: String,
     url: String,
-    author: String,
     saved: { type: Boolean, default: false }
 });
 
