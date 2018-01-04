@@ -69,10 +69,20 @@ module.exports = app => {
 			});
 		})
 		.get((req, res) => {
+			console.log(req.params);
 			db.Article.findOne({ _id: req.params.articleId })
 				.populate('comments')
 				.then(art => res.json(art.comments))
 				.catch(err => res.status(404).send(err.message));
+		})
+		.delete((req, res) => {
+			Comment.remove({ _id: req.body })
+				.then(() => db.Article.findOneAndUpdate(
+					{ _id: req.params },
+					{ $pull: { comments: req.body }},
+					{ new: true }
+				))
+				.catch(err => res.status(400).json({ message: err.message}));
 		});
 
 };

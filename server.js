@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const exphbs = require('express-handlebars');
 
 const PORT = process.env.PORT || 3000;
 
@@ -17,14 +18,18 @@ db.once('open', () => console.log('connected to database'));
 
 app.use(logger('dev'));
 
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
+app.use(express.static('./public'));
+
+
 // Linking routes
-require("./routes/html-routes")(app);
-require("./routes/api-routes")(app);
+require('./routes/html-routes')(app);
+require('./routes/api-routes')(app);
 
 
 

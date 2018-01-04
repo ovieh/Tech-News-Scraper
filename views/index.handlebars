@@ -1,0 +1,41 @@
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <h1 class="navbar-item is-size-1">Mongoose Scraper</h1>
+        <a href="/" class="navbar-item is-size-4">Home</a>
+        <a href="/saved" class="navbar-item is-size-4">Saved Articles</a>
+        <div class="navbar-item">
+            <div class="field is-grouped">
+                <p class="control">
+                    <a class="button is-large">
+                        <span>Scrape New Articles</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+        <button class="button navbar-burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+<div class="container">
+    <section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Mongo Scraper
+      </h1>
+      <h2 class="subtitle">
+        The Best NYTimes Technology News Thats Fit To Scrape
+      </h2>
+    </div>
+  </div>
+</section>
+</div>
+<div class="container">
+    {{#each articles}}
+        {{> article-panel}}
+    {{/each}}
+    
+</div>
