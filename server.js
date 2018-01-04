@@ -9,10 +9,6 @@ const PORT = process.env.PORT || 3000;
 const DB_URI = process.env.MONGODB_URI || 'mongodb://localhost/mongoscraper';
 mongoose.Promise = global.Promise;
 
-// const db = mongoose.createConnection(DB_URI, {
-//     useMongoClient: true
-// });
-
 mongoose.connect(DB_URI, {useMongoClient: true});
 const db = mongoose.connection;
 

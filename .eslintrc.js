@@ -1,5 +1,4 @@
 module.exports = {
-
     "env": {
         "browser": true,
         "es6": true,
@@ -26,15 +25,5 @@ module.exports = {
             "error",
             "always"
         ]
-    },
-
-    "plugins": [
-        "mocha"
-    ],
-    "rules": {
-        "mocha/no-exclusive-tests": "error"
     }
-
-
-
 };
