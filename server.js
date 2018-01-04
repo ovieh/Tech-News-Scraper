@@ -24,8 +24,8 @@ app.use(bodyParser.json());
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-app.use(express.static('./public'));
-
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("./public"));
 
 // Linking routes
 require('./routes/html-routes')(app);
