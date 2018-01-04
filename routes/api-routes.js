@@ -1,4 +1,5 @@
 const db = require('../models');
+const Comment = require('../models/comments');
 const scraper = require('../controller/scraper');
 
 module.exports = app => {
@@ -50,16 +51,18 @@ module.exports = app => {
 
 	app.route('/comments:articleId')
 		.post((req, res) => {
-			const newComment = new db.Comment(req.body);
+			console.log("line 54 " + req.body.articleId);
+			const newComment = new Comment(req.body);
 			newComment.save((err, comment) => {
-				if(err) return res.status(400).send(err);
-
+				if (err) return res.status(400).send(err);
+				console.log(` line 58 ${req.params._id}`);
+				
 				return db.Article.findByIdAndUpdate(
-					req.params.articleId,
+					req.body.articleId,
 					{ $push: { comments: comment._id } },
 					{},
-					err => {
-						if (err) return res.status(400).send(err);
+					(err) => {
+						if(err) return res.status(400).send(err);
 						return res.json(newComment);
 					}
 				);
