@@ -7,14 +7,14 @@ const exphbs = require('express-handlebars');
 
 const PORT = process.env.PORT || 3000;
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/mongoscraper';
+const DB_URI = process.env.MONGODB_URI || 'mongodb://localhost/mongoscraper';
 mongoose.Promise = global.Promise;
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(DB_URI, {useMongoClient: true});
 const db = mongoose.connection;
 
 db.on('error', console.error.bind('console','MongoDB connection error'));
-// db.once('open', () => console.log('connected to database'));
+db.once('open', () => console.log('connected to database'));
 
 app.use(logger('dev'));
 
@@ -25,7 +25,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 // Serve static content for the app from the "public" directory in the application directory.
-app.use(express.static("./public"));
+app.use(express.static('./public'));
 
 // Linking routes
 require('./routes/html-routes')(app);

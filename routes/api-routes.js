@@ -51,11 +51,9 @@ module.exports = app => {
 
 	app.route('/comments:articleId')
 		.post((req, res) => {
-			console.log("line 54 " + req.body.articleId);
 			const newComment = new Comment(req.body);
 			newComment.save((err, comment) => {
 				if (err) return res.status(400).send(err);
-				console.log(` line 58 ${req.params._id}`);
 				
 				return db.Article.findByIdAndUpdate(
 					req.body.articleId,
