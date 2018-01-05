@@ -55,6 +55,13 @@ function unSaveArticle(event) {
 
 }
 
+
+
+
+
+
+
+
 function pageReady() {
 	// document.getElementById('scrape').onclick = scrapeArticles;
 	$('#scrape').on('click', scrapeArticles);
@@ -62,11 +69,15 @@ function pageReady() {
 	$('.unsave').on('click', unSaveArticle);
 
 
-	//Status modal
+	//Results modal
 	$('.modal-close').click(function () {
 		$('#resultsModal').removeClass('is-active');
 		window.location.href = '/';
-
+	});
+	//Results modal
+	$('.modal-close').click(function () {
+		$('#commentsModal').removeClass('is-active');
+		window.location.href = '/';
 	});
 
 
