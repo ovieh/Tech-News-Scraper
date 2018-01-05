@@ -44,7 +44,7 @@ module.exports = app => {
 		});
 
 	app.post('/articles/unsave', (req, res) => {
-		setSaved(req.body, false)
+		setSaved(req.body.id, false)
 			.then(article => res.json(article))
 			.catch(err => res.status(404).json(err));
 	});
