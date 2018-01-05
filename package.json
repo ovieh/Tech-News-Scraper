@@ -1,5 +1,5 @@
 {
-  "name": "Mongo-Scraper",
+  "name": "mongo-scraper",
   "version": "1.0.0",
   "engines": {
     "node": "8.9.0",
@@ -9,7 +9,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "start": "node server.js"
+    "start": "npm start"
   },
   "keywords": [],
   "author": "",
