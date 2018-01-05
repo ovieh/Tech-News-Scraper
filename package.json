@@ -8,8 +8,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
-    "start": "npm start"
+    "test": "mocha"
+
   },
   "keywords": [],
   "author": "",
