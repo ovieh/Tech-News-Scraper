@@ -21,40 +21,33 @@
 </nav>
 <div class="container">
     <section class="hero">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        Mongo Scraper
-      </h1>
-      <h2 class="subtitle">
-        The Best NYTimes Technology News Thats Fit To Scrape
-      </h2>
-    </div>
-  </div>
-</section>
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Mongo Scraper
+                </h1>
+                <h2 class="subtitle">
+                    The Best NYTimes Technology News Thats Fit To Scrape
+                </h2>
+            </div>
+        </div>
+    </section>
 </div>
 <div class="container">
-    {{#each articles}}
-        {{> article-panel}}
-    {{/each}}
+    {{#each articles}} {{> article-panel}} {{/each}} {{#unless articles}}
+    <div class="card">
+        <div class="card-content" id="article-{{this.id}}">
+            <p class="title">
+                No Articles
+            </p>
+            <p class="subtitle">
+                {{#if saved}} It looks like you haven't saved any articles. {{else}} There aren't any article yet, Press Scrape New Articles
+                button to generate stories {{/if}}
+            </p>
+        </div>
 
-    {{#unless articles}}
-        <div class="card">
-    <div class="card-content" id="article-{{this.id}}">
-        <p class="title">
-            No Articles
-        </p>
-        <p class="subtitle">
-            {{#if saved}}
-                It looks like you haven't saved any articles.
-            {{else}}
-                There aren't any article yet, Press Scrape New Articles button to generate stories
-            {{/if}}
-        </p>
+
     </div>
-
-
-</div>
     {{/unless}}
 
 </div>
