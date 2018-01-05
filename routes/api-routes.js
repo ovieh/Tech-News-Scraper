@@ -18,7 +18,7 @@ module.exports = app => {
 		scraper()
 			.then(data => {
 				db.Article.create(data, (err, newArticles) => {
-					if (err) console.log(err.message);
+					if (err) console.log(err);
 					res.json(newArticles);
 				});
 			})

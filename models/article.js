@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const uniqueValidator = require('mongoose-unique-validator');
 
 const articleSchema = new Schema({
 	headline: {
@@ -19,5 +20,6 @@ const articleSchema = new Schema({
 	comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 
 });
+articleSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Article', articleSchema);
