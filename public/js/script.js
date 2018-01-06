@@ -57,7 +57,47 @@
 	}
 
 	function showComments() {
+
+		const articleId = $(event.target).attr('data-id');
+		const headline = $(event.target).attr('data-headline');
+
+		let modalTitle = $('#commentsModal').find('.modal-card-body');
+		modalTitle.attr('data-id', articleId);
+
+		modalTitle.prepend(headline);
+
 		$('#commentsModal').addClass('is-active');
+
+	}
+
+	function saveComment() {
+		event.preventDefault();
+
+		const articleId = $('#article-title').data('id');
+		const noteText = $('#note-text-area').val();
+
+
+		$.ajax({
+				method: 'POST',
+				url: '/comments' + articleId,
+				data: {
+					text: noteText
+				}
+			})
+			.done(function (note, status, response) {
+				if (response.status === 200) {
+					$('#note-text-area').val('');
+				}
+			})
+			.fail(function (err) {
+				console.log(err);
+			});
+
+
+	}
+
+	function deleteComment() {
+
 	}
 
 
@@ -83,6 +123,7 @@
 			window.location.reload();
 		});
 
+		$('#submit-note').on('click', saveComment);
 
 	}
 
