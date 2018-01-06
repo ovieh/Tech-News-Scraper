@@ -79,7 +79,7 @@
 
 		$.ajax({
 				method: 'POST',
-				url: '/comments' + articleId,
+				url: '/comments/' + articleId,
 				data: {
 					text: noteText
 				}

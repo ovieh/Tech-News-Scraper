@@ -49,7 +49,7 @@ module.exports = app => {
 			.catch(err => res.status(404).json(err));
 	});
 
-	app.route('/comments:articleId')
+	app.route('/comments/:articleId')
 		.post((req, res) => {
 			const newComment = new Comment(req.body);
 			newComment.save((err, comment) => {
