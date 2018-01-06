@@ -1,4 +1,4 @@
-const db = require('../models');
+const Article = require('../models/article');
 const Comment = require('../models/comments');
 const scraper = require('../controller/scraper');
 
@@ -6,7 +6,7 @@ module.exports = app => {
 
 	const setSaved = (id, saved) => {
 		console.log(id);
-		return db.Article.findByIdAndUpdate(
+		return Article.findByIdAndUpdate(
 			id, 
 			{ saved }, 
 			{ new: true	}
@@ -17,7 +17,7 @@ module.exports = app => {
 		// res.json(articles)
 		scraper()
 			.then(data => {
-				db.Article.create(data, (err, newArticles) => {
+				Article.create(data, (err, newArticles) => {
 					if (err) console.log(err);
 					res.json(newArticles);
 				});
@@ -26,14 +26,14 @@ module.exports = app => {
 	});
 
 	app.get('/articles', (req, res) => {
-		db.Article.find({})
+		Article.find({})
 			.then(articles => res.json(articles))
 			.catch(err => res.status(500).json(err));
 	});
 
 	app.route('/articles/save')
 		.get((req, res) => {
-			db.Article.find({ saved: true })
+			Article.find({ saved: true })
 				.then(articles => res.json(articles))
 				.catch(err => res.status(500).send(err.message));
 		})
@@ -55,8 +55,8 @@ module.exports = app => {
 			newComment.save((err, comment) => {
 				if (err) return res.status(400).send(err);
 				
-				return db.Article.findByIdAndUpdate(
-					req.body.articleId,
+				return Article.findByIdAndUpdate(
+					req.params.articleId,
 					{ $push: { comments: comment._id } },
 					{},
 					(err) => {
@@ -68,14 +68,14 @@ module.exports = app => {
 		})
 		.get((req, res) => {
 			console.log(req.params);
-			db.Article.findOne({ _id: req.params.articleId })
+			Article.findOne({ _id: req.params.articleId })
 				.populate('comments')
 				.then(art => res.json(art.comments))
 				.catch(err => res.status(404).send(err.message));
 		})
 		.delete((req, res) => {
 			Comment.remove({ _id: req.body })
-				.then(() => db.Article.findOneAndUpdate(
+				.then(() => Article.findOneAndUpdate(
 					{ _id: req.params },
 					{ $pull: { comments: req.body }},
 					{ new: true }
