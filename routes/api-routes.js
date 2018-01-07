@@ -36,7 +36,9 @@ module.exports = app => {
 	app.route('/articles/save')
 		.get((req, res) => {
 			Article
-				.find({ saved: true })
+				.find({
+					saved: true
+				})
 				.then(articles => res.json(articles))
 				.catch(err => res.status(500).send(err.message));
 		})
@@ -54,29 +56,53 @@ module.exports = app => {
 
 	//Comments
 	app.route('/articles/:id')
-		.post((req, res) => {
-			Comment.create(req.body)
-				.then(comment => {
-					return Article.findOneAndUpdate({
-						_id: req.params.id
-					}, {
-						comments: comment._id
-					});
-				})
-				.then(article => {
-					res.json(article);
-				})
-				.catch(err => res.json(err));
-		})
 		.get((req, res) => {
 			console.log(`line 70 ${req.params.id}`);
-			Article.findOne({	_id: req.params.id })
+			Article.findOne({
+					_id: req.params.id
+				})
 				.populate('comments')
 				.then(article => res.json(article))
 				.catch(err => res.status(404).send(err.message));
 		})
+		.post((req, res) => {
+			// Comment.create(req.body)
+			// .then(dbComment => {
+			// 	return Article.findOneAndUpdate({
+			// 		_id: req.params.id
+			// 	}, {
+			// 		comments: dbComment._id
+			// 	});
+			// })
+			// .then(dbArticle => {
+			// 	res.json(dbArticle);
+			// })
+			// .catch(err => res.json(err));
+			const newComment = new Comment(req.body);
+			newComment.save(function (error, data) {
+				if (error) throw error;
+				Article.findOneAndUpdate({
+						"_id": req.params.id
+					}, {
+						$push: {
+							"comments": data._id
+						}
+					}, {
+						new: true
+					})
+					.exec(function (error, data) {
+						if (error) throw error;
+						res.redirect('/saved');
+					});
+			});
+
+
+		})
+
 		.delete((req, res) => {
-			Comment.remove({ _id: req.body })
+			Comment.remove({
+					_id: req.body
+				})
 				.then(() => Article.findOneAndUpdate({
 					_id: req.params
 				}, {
