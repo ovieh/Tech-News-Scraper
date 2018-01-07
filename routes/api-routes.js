@@ -7,9 +7,11 @@ module.exports = app => {
 	const setSaved = (id, saved) => {
 		console.log(id);
 		return Article.findByIdAndUpdate(
-			id, 
-			{ saved }, 
-			{ new: true	}
+			id, {
+				saved
+			}, {
+				new: true
+			}
 		);
 	};
 
@@ -33,7 +35,9 @@ module.exports = app => {
 
 	app.route('/articles/save')
 		.get((req, res) => {
-			Article.find({ saved: true })
+			Article.find({
+					saved: true
+				})
 				.then(articles => res.json(articles))
 				.catch(err => res.status(500).send(err.message));
 		})
@@ -49,38 +53,63 @@ module.exports = app => {
 			.catch(err => res.status(404).json(err));
 	});
 
-	app.route('/comments/:articleId')
+	//Comments
+	app.route('/articles/:id')
 		.post((req, res) => {
-			const newComment = new Comment(req.body);
-			newComment.save((err, comment) => {
-				if (err) return res.status(400).send(err);
-				
-				return Article.findByIdAndUpdate(
-					req.params.articleId,
-					{ $push: { comments: comment._id } },
-					{},
-					(err) => {
-						if(err) return res.status(400).send(err);
-						return res.json(newComment);
-					}
-				);
-			});
+			// const newComment = new Comment(req.body);
+			// newComment.save((err, comment) => {
+			// 	if (err) return res.status(400).send(err);
+
+			// 	return Article.findONe(
+			// 		req.params.articleId,
+			// 		{ $push: { comments: comment._id } },
+			// 		{},
+			// 		(err) => {
+			// 			if(err) return res.status(400).send(err);
+			// 			return res.json(newComment);
+			// 		}
+			// 	);
+			// });
+			Comment.create(req.body)
+				.then(comment => {
+					return Article.findOneAndUpdate({
+						_id: req.params.id
+					}, {
+						comments: comment._id
+					}, {
+						new: true
+					});
+				})
+				.then(article => {
+					res.json(article);
+				})
+				.catch(err => res.json(err));
 		})
 		.get((req, res) => {
-			console.log(req.params);
-			Article.findOne({ _id: req.params.articleId })
+			console.log(`line 70 ${req.params.articleId}`);
+			Article.findOne({
+					_id: req.params.articleId
+				})
 				.populate('comments')
 				.then(art => res.json(art.comments))
 				.catch(err => res.status(404).send(err.message));
 		})
 		.delete((req, res) => {
-			Comment.remove({ _id: req.body })
-				.then(() => Article.findOneAndUpdate(
-					{ _id: req.params },
-					{ $pull: { comments: req.body }},
-					{ new: true }
-				))
-				.catch(err => res.status(400).json({ message: err.message}));
+			Comment.remove({
+					_id: req.body
+				})
+				.then(() => Article.findOneAndUpdate({
+					_id: req.params
+				}, {
+					$pull: {
+						comments: req.body
+					}
+				}, {
+					new: true
+				}))
+				.catch(err => res.status(400).json({
+					message: err.message
+				}));
 		});
 
 };
