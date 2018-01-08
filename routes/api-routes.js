@@ -1,5 +1,5 @@
 const Article = require('../models/article');
-const Comment = require('../models/comments');
+const Comments = require('../models/comments');
 const scraper = require('../controller/scraper');
 
 module.exports = app => {
@@ -65,7 +65,7 @@ module.exports = app => {
 	});
 
 	app.post('/articles/:id/comments/new', (req,res) => {
-		Comment
+		Comments
 			.create(req.body)
 			.then(newComment => {
 				return Article.findOneAndUpdate(
@@ -79,7 +79,7 @@ module.exports = app => {
 	});
 
 	app.post('/comments/:id/delete', (req, res) => {
-		Comment.remove({ _id: req.params.id }).then(() => {
+		Comments.remove({ _id: req.params.id }).then(() => {
 			Article
 				.update(
 					{ comments: req.params.id },

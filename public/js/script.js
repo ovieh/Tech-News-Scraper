@@ -2,15 +2,13 @@
 	function scrapeArticles() {
 		$.get('/scrape')
 			.done(function (data, status, response) {
-
-				let modalBody = $('#resultsModal').find('.modal-card-body');
+				let modalBody = $('#resultsModal').find('.modal-body');
 
 				if (response.status === 200) {
 
 					modalBody.text(`${data.length} articles were added!`);
 					// console.log(`${data.length} articles were added!`);
 				}
-				$('#resultsModal').addClass('is-active');
 
 			})
 			.fail(function (error) {

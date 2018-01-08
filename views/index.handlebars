@@ -1,6 +1,6 @@
 {{!-- Modal Business --}}
 
-<div class="modal" id="resultsModal">
+{{!-- <div class="modal" id="resultsModal">
 	<div class="modal-background"></div>
 	<div class="modal-content">
 		<div class="modal-card">
@@ -10,51 +10,70 @@
 		</div>
 	</div>
 	<button class="modal-close is-large" id="scrape-modal" aria-label="close"></button>
+</div> --}}
+
+<!-- Modal -->
+<div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resultsModalLabel">Articles Scraped</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
-<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-	<div class="navbar-brand">
-		<h1 class="navbar-item is-size-1">Mongoose Scraper</h1>
-		<a href="/" class="navbar-item is-size-4">Home</a>
-		<a href="/saved" class="navbar-item is-size-4">Saved Articles</a>
-		<div class="navbar-item">
-			<div class="field is-grouped">
-				<p class="control">
-					<a class="button is-large" id="scrape">
-						<span>Scrape New Articles</span>
-					</a>
-				</p>
-			</div>
-		</div>
-		<button class="button navbar-burger">
-			<span></span>
-			<span></span>
-			<span></span>
-		</button>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="/">Mongoose Scraper</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+	 aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="/">Home
+					<span class="sr-only">(current)</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/saved">Saved Articles</a>
+			</li>
+			<li>
+				<button class="btn btn-outline-secondary my-2 my-sm-0" id='scrape' type="submit" data-toggle="modal" data-target="#resultsModal">Scrape New Articles</button>
+
+			</li>
+		</ul>
+
+
 	</div>
 </nav>
-<div class="container">
-	<section class="hero">
-		<div class="hero-body">
-			<div class="container">
-				<h1 class="title">
-					Mongo Scraper
-				</h1>
-				<h2 class="subtitle">
-					The Best NYTimes Technology News Thats Fit To Scrape
-				</h2>
-			</div>
-		</div>
-	</section>
+
+<div class="jumbotron">
+  <h1 class="display-4">Mongo(ose) Scraper</h1>
+  <p class="lead">All the New York Times Technology News Fit To Scrape.</p>
+
 </div>
 
-{{#each this}}
-{{#if this._id}}
+{{#each this}} {{#if this._id}}
 
 <div class="container">
- {{> article-panel}} 
-	{{!-- <div class="card">
+	{{> article-panel}} {{!--
+	<div class="card">
 		<div class="card-content" id="article-{{this.id}}">
 			<p class="title">
 				No Articles
@@ -71,5 +90,4 @@
 </div>
 
 
-{{/if}}
-{{/each}}
+{{/if}} {{/each}}
