@@ -67,12 +67,12 @@
 
 	}
 
-	function saveComment() {
+	function saveComment(event) {
 		event.preventDefault();
 
-		const articleId = $('#article-title').data('id');
-		const noteText = $('#note-text-area').val();
-
+		const articleId = $(this).attr('data-article-id');
+		alert(articleId);
+		const noteText = $(`#comment-textarea-${articleId}`).val();
 
 		$.ajax({
 				method: 'POST',
@@ -83,11 +83,11 @@
 			})
 			.done(function (note, status, response) {
 				if (response.status === 200) {
-					$('#note-text-area').val('');
+					$('#comment-textarea').val('');
 				}
 			})
 			.fail(function (err) {
-				console.log(err);
+				console.log(err.status);
 			});
 
 
@@ -125,7 +125,7 @@
 			window.location.reload();
 		});
 
-		$('#submit-note').on('click', saveComment);
+		$('.submit-comment').on('click', saveComment);
 
 	}
 

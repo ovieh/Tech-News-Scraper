@@ -1,6 +1,6 @@
 <div class="card">
-    <div class="card-block" id="article-{{this.id}}">
-        <h4 class="card-title title">
+    <div class="card-block">
+        <h4 class="card-title" id="article-title" data-article-id="{{this.id}}">
             {{this.headline}}
         </h4>
         <h6 class="card-subtitle subtitle">
@@ -13,7 +13,22 @@
 
 </div>
 
-<div class="modal" id="commentsModal">
+<div class="collapse" id="commentCollapse-{{this._id}}">
+    <div class="card card-body">
+        {{#if this.comments}}
+        {{#each this.comments}}
+            {{this.text}}
+        {{/each}}
+        {{/if}}
+        <div class="form-group">
+            <label for="comment-textarea">Comment</label>
+            <textarea name="" id="comment-textarea-{{this._id}}" class="form-control"></textarea>
+        </div>
+        <button class="btn btn-light submit-comment" data-article-id="{{this._id}}">Submit Comment</button>
+    </div>
+</div>
+
+{{!-- <div class="modal" id="commentsModal">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
@@ -42,7 +57,7 @@
             <button class="button is-success" id="submit-note">Submit Comment</button>
         </footer>
     </div>
-</div>
+</div> --}}
 
 
 {{!-- {{>article-comment}} --}}
