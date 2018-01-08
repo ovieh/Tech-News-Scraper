@@ -1,101 +1,75 @@
-<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <h1 class="navbar-item is-size-1">Mongoose Scraper</h1>
-        <a href="/" class="navbar-item is-size-4">Home</a>
-        <a href="/saved" class="navbar-item is-size-4">Saved Articles</a>
-        <div class="navbar-item">
-            <div class="field is-grouped">
-                <p class="control">
-                    <a class="button is-large" id="scrape">
-                        <span>Scrape New Articles</span>
-                    </a>
-                </p>
-            </div>
-        </div>
-        <button class="button navbar-burger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</nav>
-<div class="container">
-    <section class="hero">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Mongo Scraper
-                </h1>
-                <h2 class="subtitle">
-                    The Best NYTimes Technology News Thats Fit To Scrape
-                </h2>
-            </div>
-        </div>
-    </section>
-</div>
-<div class="container">
-    {{#each articles}} {{> article-panel}} {{/each}} {{#unless articles}}
-    <div class="card">
-        <div class="card-content" id="article-{{this.id}}">
-            <p class="title">
-                No Articles
-            </p>
-            <p class="subtitle">
-                {{#if saved}}
-                <p>It looks like you haven't saved any articles. </p>
-                {{else}}
-                <p>There aren't any article yet, Press Scrape New Articles button to generate stories </p>
-                {{/if}}
-            </p>
-        </div>
-
-
-    </div>
-    {{/unless}} {{!-- {{> comments}} --}}
-</div>
-
 {{!-- Modal Business --}}
 
 <div class="modal" id="resultsModal">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-        <div class="modal-card">
-            <section class="modal-card-body">
-                <!-- Content ... -->
-            </section>
-        </div>
-    </div>
-    <button class="modal-close is-large" aria-label="close"></button>
+	<div class="modal-background"></div>
+	<div class="modal-content">
+		<div class="modal-card">
+			<section class="modal-card-body">
+				<!-- Content ... -->
+			</section>
+		</div>
+	</div>
+	<button class="modal-close is-large" id="scrape-modal" aria-label="close"></button>
 </div>
 
-<div class="modal" id="commentsModal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-            <p class="modal-card-title">Article Comments</p>
-            <button class="delete" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body" id="article-title">
-            {{#each articles}} {{#if comments}}
-            <ul>
-                {{#each comments}}
-                <li>
-                    {{ text }}
-                </li>
-                {{/each}}
-            </ul>
-            {{else}}
-            <p>Article has no comments</p>
-            {{/if}}
-            <div class="control">
-                <textarea class="textarea" id="note-text-area" type="text" placeholder="Comment on Article"></textarea>
-            </div>
-            {{/each}}
 
-        </section>
-
-        <footer class="modal-card-foot">
-            <button class="button is-success" id="submit-note">Submit Comment</button>
-        </footer>
-    </div>
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+	<div class="navbar-brand">
+		<h1 class="navbar-item is-size-1">Mongoose Scraper</h1>
+		<a href="/" class="navbar-item is-size-4">Home</a>
+		<a href="/saved" class="navbar-item is-size-4">Saved Articles</a>
+		<div class="navbar-item">
+			<div class="field is-grouped">
+				<p class="control">
+					<a class="button is-large" id="scrape">
+						<span>Scrape New Articles</span>
+					</a>
+				</p>
+			</div>
+		</div>
+		<button class="button navbar-burger">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+	</div>
+</nav>
+<div class="container">
+	<section class="hero">
+		<div class="hero-body">
+			<div class="container">
+				<h1 class="title">
+					Mongo Scraper
+				</h1>
+				<h2 class="subtitle">
+					The Best NYTimes Technology News Thats Fit To Scrape
+				</h2>
+			</div>
+		</div>
+	</section>
 </div>
+
+{{#each this}}
+{{#if this._id}}
+
+<div class="container">
+ {{> article-panel}} 
+	{{!-- <div class="card">
+		<div class="card-content" id="article-{{this.id}}">
+			<p class="title">
+				No Articles
+			</p>
+			<p class="subtitle">
+				{{#if this.saved}}
+				<p>It looks like you haven't saved any articles. </p>
+				{{else}}
+				<p>There aren't any article yet, Press Scrape New Articles button to generate stories </p>
+				{{/if}}
+			</p>
+		</div>
+	</div> --}}
+</div>
+
+
+{{/if}}
+{{/each}}

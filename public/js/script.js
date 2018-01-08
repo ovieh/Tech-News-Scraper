@@ -57,7 +57,6 @@
 	}
 
 	function showComments() {
-
 		const articleId = $(event.target).attr('data-id');
 		const headline = $(event.target).attr('data-headline');
 
@@ -79,7 +78,7 @@
 
 		$.ajax({
 				method: 'POST',
-				url: '/articles/' + articleId,
+				url: `/articles/${articleId}/comments/new`,
 				data: {
 					text: noteText
 				}
@@ -97,13 +96,17 @@
 	}
 
 	function deleteComment() {
+		const commentId = $(event.target).attr('data-id');
 
+		$.ajax({
+			url: `/comments/${commentId}/delete`,
+			type: 'POST'
+		})
+		.done(function(comment, status, response){
+			$('#commentsModal').removeClass('is-active');
+			window.location.href = '/saved';
+		});
 	}
-
-
-
-
-
 
 	function pageReady() {
 		// document.getElementById('scrape').onclick = scrapeArticles;
@@ -111,14 +114,15 @@
 		$('.save').on('click', saveArticle);
 		$('.unsave').on('click', unSaveArticle);
 		$('.comments').on('click', showComments);
+		$('#delete-comment').on('click', deleteComment);
 
 		//Results modal
-		$('.modal-close').click(function () {
+		$('#scrape-modal').click(function () {
 			$('#resultsModal').removeClass('is-active');
 			window.location.href = '/';
 		});
 		//Comments modal
-		$('.delete').click(function () {
+		$('#close-comments-modal').click(function () {
 			$('#commentsModal').removeClass('is-active');
 			window.location.reload();
 		});

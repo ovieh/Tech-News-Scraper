@@ -1,0 +1,30 @@
+<div class="modal" id="commentsModal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Article Comments</p>
+            <button class="delete" aria-label="close" id="close-comments-modal"></button>
+        </header>
+        <section class="modal-card-body" id="article-title">
+            {{#if this.comments}}
+            <ul>
+                {{#each this.comments}}
+                <li>
+                        {{ this.text }} <a class="delete" id="delete-comment" data-id="{{this._id}}"></a>
+                </li>
+                {{/each}}
+            </ul>
+            {{else}}
+            <p>Article has no comments</p>
+            {{/if}}
+            <div class="control">
+                <textarea class="textarea" id="note-text-area" type="text" placeholder="Comment on Article"></textarea>
+            </div>
+
+        </section>
+
+        <footer class="modal-card-foot">
+            <button class="button is-success" id="submit-note">Submit Comment</button>
+        </footer>
+    </div>
+</div>

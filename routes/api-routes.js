@@ -55,66 +55,41 @@ module.exports = app => {
 	});
 
 	//Comments
-	app.route('/articles/:id')
-		.get((req, res) => {
-			console.log(`line 70 ${req.params.id}`);
-			Article.findOne({
-					_id: req.params.id
-				})
-				.populate('comments')
-				.then(article => res.json(article))
-				.catch(err => res.status(404).send(err.message));
-		})
-		.post((req, res) => {
-			// Comment.create(req.body)
-			// .then(dbComment => {
-			// 	return Article.findOneAndUpdate({
-			// 		_id: req.params.id
-			// 	}, {
-			// 		comments: dbComment._id
-			// 	});
-			// })
-			// .then(dbArticle => {
-			// 	res.json(dbArticle);
-			// })
-			// .catch(err => res.json(err));
-			const newComment = new Comment(req.body);
-			newComment.save(function (error, data) {
-				if (error) throw error;
-				Article.findOneAndUpdate({
-						"_id": req.params.id
-					}, {
-						$push: {
-							"comments": data._id
-						}
-					}, {
-						new: true
-					})
-					.exec(function (error, data) {
-						if (error) throw error;
-						res.redirect('/saved');
-					});
-			});
+	app.get('/articles/:id', (req, res) => {
+		Article
+			.findOne({_id: req.params.id })
+			.populate('comments')
+			.then(article => res.json(article))
+			.catch(err => res.status(404).send(err.message));
 
+	});
 
-		})
+	app.post('/articles/:id/comments/new', (req,res) => {
+		Comment
+			.create(req.body)
+			.then(newComment => {
+				return Article.findOneAndUpdate(
+					{ _id: req.params.id },
+					{ $push: { comments: newComment._id }},
+					{ new: true }
+				);
+			})
+			.then(data => res.json(data))
+			.catch(err => res.status(404).send(err.message));
+	});
 
-		.delete((req, res) => {
-			Comment.remove({
-					_id: req.body
-				})
-				.then(() => Article.findOneAndUpdate({
-					_id: req.params
-				}, {
-					$pull: {
-						comments: req.body
-					}
-				}, {
-					new: true
-				}))
-				.catch(err => res.status(400).json({
-					message: err.message
-				}));
+	app.post('/comments/:id/delete', (req, res) => {
+		Comment.remove({ _id: req.params.id }).then(() => {
+			Article
+				.update(
+					{ comments: req.params.id },
+					{ $pullAll: { comments: [{ _id: req.params.id }] } }
+				)
+				.then(data => {
+					res.json(data);
+				});
 		});
+	});
+		
 
 };
