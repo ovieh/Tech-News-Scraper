@@ -16,9 +16,17 @@
 <div class="collapse" id="commentCollapse-{{this._id}}">
     <div class="card card-body">
         {{#if this.comments}}
-        {{#each this.comments}}
-            {{this.text}}
-        {{/each}}
+        <ul class="list-group">
+            {{#each this.comments}}
+            <li class="list-group-item">{{this.text}}
+                <button type="button" class="close delete" aria-label="Close" delete-comment-id="{{this._id}}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+
+            {{/each}}
+        </ul>
+
         {{/if}}
         <div class="form-group">
             <label for="comment-textarea">Comment</label>
@@ -28,7 +36,8 @@
     </div>
 </div>
 
-{{!-- <div class="modal" id="commentsModal">
+{{!--
+<div class="modal" id="commentsModal">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
@@ -40,7 +49,8 @@
             <ul>
                 {{#each this.comments}}
                 <li>
-                        {{ text }} <a class="delete" id="delete-comment" data-id="{{this._id}}"></a>
+                    {{ text }}
+                    <a class="delete" id="delete-comment" data-id="{{this._id}}"></a>
                 </li>
                 {{/each}}
             </ul>
@@ -57,7 +67,4 @@
             <button class="button is-success" id="submit-note">Submit Comment</button>
         </footer>
     </div>
-</div> --}}
-
-
-{{!-- {{>article-comment}} --}}
+</div> --}} {{!-- {{>article-comment}} --}}

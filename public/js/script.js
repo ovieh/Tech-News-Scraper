@@ -93,9 +93,9 @@
 
 	}
 
-	function deleteComment() {
-		const commentId = $(event.target).attr('data-id');
-
+	function deleteComment(event) {
+		const commentId = $(this).attr('delete-comment-id');
+		alert(commentId);
 		$.ajax({
 			url: `/comments/${commentId}/delete`,
 			type: 'POST'
@@ -112,7 +112,7 @@
 		$('.save').on('click', saveArticle);
 		$('.unsave').on('click', unSaveArticle);
 		$('.comments').on('click', showComments);
-		$('#delete-comment').on('click', deleteComment);
+		$('.delete').on('click', deleteComment);
 
 		//Results modal
 		$('#scrape-modal').click(function () {
