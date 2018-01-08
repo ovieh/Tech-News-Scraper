@@ -15,7 +15,6 @@
 				console.log('Looks like there was a problem: \n', error);
 			});
 	}
-
 	function saveArticle(event) {
 		const articleId = $(event.target).attr('data-id');
 		const data = {
@@ -53,7 +52,7 @@
 		});
 
 	}
-
+	//Vestigial code
 	function showComments() {
 		const articleId = $(event.target).attr('data-id');
 		const headline = $(event.target).attr('data-headline');
@@ -63,10 +62,9 @@
 
 		modalTitle.prepend(headline);
 
-		$('#commentsModal').addClass('is-active');
 
 	}
-
+	//Todo: Figure out a way to show comment immediately without reload
 	function saveComment(event) {
 		event.preventDefault();
 
@@ -83,6 +81,9 @@
 			.done(function (note, status, response) {
 				if (response.status === 200) {
 					$(`#comment-textarea-${articleId}`).val('');
+					//I'm doing this to make up for the fact that comments are displayed immediatly.
+					$(`#commentCollapse-${articleId}`).collapse('hide');
+					window.location.reload();
 				}
 			})
 			.fail(function (err) {
