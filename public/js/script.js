@@ -71,7 +71,6 @@
 		event.preventDefault();
 
 		const articleId = $(this).attr('data-article-id');
-		alert(articleId);
 		const noteText = $(`#comment-textarea-${articleId}`).val();
 
 		$.ajax({
@@ -83,7 +82,7 @@
 			})
 			.done(function (note, status, response) {
 				if (response.status === 200) {
-					$('#comment-textarea').val('');
+					$(`#comment-textarea-${articleId}`).val('');
 				}
 			})
 			.fail(function (err) {
@@ -93,9 +92,8 @@
 
 	}
 
-	function deleteComment(event) {
+	function deleteComment() {
 		const commentId = $(this).attr('delete-comment-id');
-		alert(commentId);
 		$.ajax({
 			url: `/comments/${commentId}/delete`,
 			type: 'POST'
@@ -114,16 +112,10 @@
 		$('.comments').on('click', showComments);
 		$('.delete').on('click', deleteComment);
 
-		//Results modal
-		$('#scrape-modal').click(function () {
-			$('#resultsModal').removeClass('is-active');
+		$('#close-results-modal').on('click', function(){
 			window.location.href = '/';
 		});
-		//Comments modal
-		$('#close-comments-modal').click(function () {
-			$('#commentsModal').removeClass('is-active');
-			window.location.reload();
-		});
+
 
 		$('.submit-comment').on('click', saveComment);
 

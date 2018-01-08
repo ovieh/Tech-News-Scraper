@@ -1,41 +1,3 @@
-{{!-- Modal Business --}}
-
-{{!-- <div class="modal" id="resultsModal">
-	<div class="modal-background"></div>
-	<div class="modal-content">
-		<div class="modal-card">
-			<section class="modal-card-body">
-				<!-- Content ... -->
-			</section>
-		</div>
-	</div>
-	<button class="modal-close is-large" id="scrape-modal" aria-label="close"></button>
-</div> --}}
-
-<!-- Modal -->
-<div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="resultsModalLabel">Articles Scraped</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<a class="navbar-brand" href="/">Mongoose Scraper</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -64,30 +26,34 @@
 </nav>
 
 <div class="jumbotron">
-  <h1 class="display-4">Mongo(ose) Scraper</h1>
-  <p class="lead">All the New York Times Technology News Fit To Scrape.</p>
+	<h1 class="display-4">Mongo(ose) Scraper</h1>
+	<p class="lead">All the New York Times Technology News Fit To Scrape.</p>
 
 </div>
 
 {{#each this}} {{#if this._id}}
 
 <div class="container">
-	{{> article-panel}} {{!--
-	<div class="card">
-		<div class="card-content" id="article-{{this.id}}">
-			<p class="title">
-				No Articles
-			</p>
-			<p class="subtitle">
-				{{#if this.saved}}
-				<p>It looks like you haven't saved any articles. </p>
-				{{else}}
-				<p>There aren't any article yet, Press Scrape New Articles button to generate stories </p>
-				{{/if}}
-			</p>
-		</div>
-	</div> --}}
+	{{> article-panel}}
 </div>
 
 
 {{/if}} {{/each}}
+
+
+<!-- Modal -->
+<div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="resultsModalLabel">Articles Scraped</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-results-modal">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+			</div>
+		</div>
+	</div>
+</div>
