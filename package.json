@@ -5,13 +5,14 @@
     "node": "8.9.4",
     "npm": "5.6.0"
   },
-  "description": "",
+  "description": "Site scraper using Mongo, Express, Handlebars, Node, & Cheerio.",
   "main": "server.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ovieh Mosley",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -30,5 +31,16 @@
     "eslint-plugin-mocha": "^4.11.0",
     "mocha": "^4.0.1",
     "supertest": "^3.0.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ovieh/Mongo-Scraper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ovieh/Mongo-Scraper/issues"
+  },
+  "homepage": "https://github.com/ovieh/Mongo-Scraper#readme"
 }
