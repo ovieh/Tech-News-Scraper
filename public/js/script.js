@@ -36,7 +36,7 @@
 
 	function unSaveArticle(event) {
 		const articleId = this.getAttribute('data-id');
-		
+
 		const data = {
 			id: articleId
 		};
@@ -50,45 +50,29 @@
 				console.log(error);
 			});
 	}
-	//Vestigial code
-	function showComments() {
-		const articleId = $(event.target).attr('data-id');
-		const headline = $(event.target).attr('data-headline');
 
-		let modalTitle = $('#commentsModal').find('.modal-card-body');
-		modalTitle.attr('data-id', articleId);
-
-		modalTitle.prepend(headline);
-
-
-	}
 	//Todo: Figure out a way to show comment immediately without reload
 	function saveComment(event) {
 		event.preventDefault();
 
-		const articleId = $(this).attr('data-article-id');
-		const noteText = $(`#comment-textarea-${articleId}`).val();
+		const articleId = this.getAttribute('data-article-id');
+		const noteText = document.getElementById(`comment-textarea-${articleId}`).value;
 
-		$.ajax({
-				method: 'POST',
-				url: `/articles/${articleId}/comments/new`,
-				data: {
-					text: noteText
-				}
-			})
-			.done(function (note, status, response) {
+
+
+		axios.post(`/articles/${articleId}/comments/new`)
+			.then(function (response) {
+				console.log(response);
 				if (response.status === 200) {
-					$(`#comment-textarea-${articleId}`).val('');
+					document.getElementById(`comment-textarea-${articleId}`).value('');
 					//I'm doing this to make up for the fact that comments are displayed immediatly.
-					$(`#commentCollapse-${articleId}`).collapse('hide');
+					document.getElementById(`commentCollapse-${articleId}`).collapse('hide');
 					window.location.reload();
 				}
 			})
-			.fail(function (err) {
-				console.log(err.status);
+			.catch(function (error) {
+				console.log(error);
 			});
-
-
 	}
 
 	function deleteComment() {
@@ -108,7 +92,6 @@
 		$('#scrape').on('click', scrapeArticles);
 		$('.save').on('click', saveArticle);
 		$('.unsave').on('click', unSaveArticle);
-		$('.comments').on('click', showComments);
 		$('.delete').on('click', deleteComment);
 
 		$('#close-results-modal').on('click', function () {
