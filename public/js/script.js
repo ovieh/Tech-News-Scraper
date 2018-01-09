@@ -4,8 +4,7 @@
 			.then(function (response, data) {
 				const modal = document.getElementById('resultsModal');
 				const modalBody = modal.querySelector('.modal-body');
-				// let modalBody = $('#resultsModal').find('.modal-body');
-				console.log(response);
+
 				if (response.status === 200) {
 
 					modalBody.textContent = `${response.data.length} articles were added!`;
@@ -16,23 +15,23 @@
 				console.log('Looks like there was a problem: \n', error);
 			});
 	}
-	function saveArticle(event) {
-		const articleId = $(event.target).attr('data-id');
+
+	function saveArticle() {
+
+		const articleId = this.getAttribute('data-id');
+
 		const data = {
 			id: articleId
 		};
 
-		$.ajax({
-			method: 'POST',
-			url: '/articles/save',
-			data: data
-		}).done(function (article, status, response) {
-			if (response.status === 200) window.location.reload();
-			else console.log(`unexpected response. response status ${response.status}`);
-		}).fail(function (response) {
-			console.log('failed to save article', response.status);
-		});
-
+		axios.post('/articles/save', data)
+			.then(function (response) {
+				console.log(response);
+				if (response.status === 200) window.location.reload();
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 	}
 
 	function unSaveArticle(event) {
@@ -97,13 +96,13 @@
 	function deleteComment() {
 		const commentId = $(this).attr('delete-comment-id');
 		$.ajax({
-			url: `/comments/${commentId}/delete`,
-			type: 'POST'
-		})
-		.done(function(comment, status, response){
-			$('#commentsModal').removeClass('is-active');
-			window.location.href = '/saved';
-		});
+				url: `/comments/${commentId}/delete`,
+				type: 'POST'
+			})
+			.done(function (comment, status, response) {
+				$('#commentsModal').removeClass('is-active');
+				window.location.href = '/saved';
+			});
 	}
 
 	function pageReady() {
@@ -114,7 +113,7 @@
 		$('.comments').on('click', showComments);
 		$('.delete').on('click', deleteComment);
 
-		$('#close-results-modal').on('click', function(){
+		$('#close-results-modal').on('click', function () {
 			window.location.href = '/';
 		});
 
