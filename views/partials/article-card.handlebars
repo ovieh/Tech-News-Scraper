@@ -19,7 +19,7 @@
         <ul class="list-group">
             {{#each this.comments}}
             <li class="list-group-item">{{this.text}}
-                <button type="button" class="close delete" aria-label="Close" delete-comment-id="{{this._id}}">
+                <button type="button" class="close" id='delete' aria-label="Close" delete-comment-id="{{this._id}}">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </li>
@@ -32,6 +32,6 @@
             <label for="comment-textarea">Comment</label>
             <textarea name="" id="comment-textarea-{{this._id}}" class="form-control"></textarea>
         </div>
-        <button class="btn btn-light submit-comment" data-article-id="{{this._id}}">Submit Comment</button>
+        <button class="btn btn-light" id='submit-comment' data-article-id="{{this._id}}">Submit Comment</button>
     </div>
 </div>

@@ -1,3 +1,7 @@
+//Todo(s)!
+// Replace Bootstrap Collapse /jQuery Accordian with something else, maybe this https://github.com/cferdinandi/houdini/
+// Replace Modal code with own
+
 (function () {
 	function scrapeArticles() {
 		axios.get('/scrape')
@@ -58,48 +62,56 @@
 		const articleId = this.getAttribute('data-article-id');
 		const noteText = document.getElementById(`comment-textarea-${articleId}`).value;
 
-
-
-		axios.post(`/articles/${articleId}/comments/new`)
+		axios.post(`/articles/${articleId}/comments/new`, { text: noteText })
 			.then(function (response) {
 				console.log(response);
 				if (response.status === 200) {
-					document.getElementById(`comment-textarea-${articleId}`).value('');
+					document.getElementById(`comment-textarea-${articleId}`).value = '';
 					//I'm doing this to make up for the fact that comments are displayed immediatly.
-					document.getElementById(`commentCollapse-${articleId}`).collapse('hide');
-					window.location.reload();
+					// const commentElem = document.getElementById(`commentCollapse-${articleId}`);
+					// commentElem.collapse('hide');
+					$(`#commentCollapse-${articleId}`).collapse('hide');
+
+					// document.getElementById(`commentCollapse-${articleId}`).collapse('hide');
+					// window.location.reload();
 				}
 			})
+			// .then(window.location.reload())
 			.catch(function (error) {
 				console.log(error);
 			});
 	}
 
 	function deleteComment() {
-		const commentId = $(this).attr('delete-comment-id');
-		$.ajax({
-				url: `/comments/${commentId}/delete`,
-				type: 'POST'
-			})
-			.done(function (comment, status, response) {
-				$('#commentsModal').removeClass('is-active');
+		const commentId = this.getAttribute('delete-comment-id');
+
+		axios.post(`/comments/${commentId}/delete`)
+			.then(function (response) {
 				window.location.href = '/saved';
+				console.log(response);
+			})
+			.catch(function (error) {
+				console.log(error);
 			});
 	}
 
+
 	function pageReady() {
-		// document.getElementById('scrape').onclick = scrapeArticles;
-		$('#scrape').on('click', scrapeArticles);
-		$('.save').on('click', saveArticle);
-		$('.unsave').on('click', unSaveArticle);
-		$('.delete').on('click', deleteComment);
+		document.getElementById('scrape').onclick = scrapeArticles;
+		const saveElem =  document.getElementById('save');
+		if(saveElem) saveElem.onclick = saveArticle;
 
-		$('#close-results-modal').on('click', function () {
-			window.location.href = '/';
-		});
+		const unsaveElem =  document.getElementById('unsave');
+		if(unsaveElem) unsaveElem.onclick = unSaveArticle;
 
+		const deleteElem =  document.getElementById('delete');
+		if(deleteElem) deleteElem.onclick = deleteComment;
 
-		$('.submit-comment').on('click', saveComment);
+		document.getElementById('submit-comment').onclick = saveComment;
+
+		// $('.submit-comment').on('click', saveComment);
+
+		//Refresh page on successful scrape
 
 	}
 

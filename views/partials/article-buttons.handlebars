@@ -1,7 +1,7 @@
 {{#if this.saved}}
-    <a class="card-link btn btn-light unsave" data-id={{this.id}}>Unsave</a>
+    <a class="card-link btn btn-light unsave" id='unsave' data-id={{this.id}}>Unsave</a>
     <a class="card-link btn btn-light comments" data-id={{this.id}} data-headline="{{this.headline}}" data-toggle="collapse" data-target="#commentCollapse-{{this.id}}" aria-expanded="false" aria-controls="commentCollapse">Comment</a>
 
 {{else}}
-    <a class="card-link btn btn-light save saveArticle" data-id={{this.id}}>Save</a>
+    <a class="card-link btn btn-light save saveArticle" id='save' data-id={{this.id}}>Save</a>
 {{/if}}
