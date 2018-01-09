@@ -1,17 +1,18 @@
 (function () {
 	function scrapeArticles() {
-		$.get('/scrape')
-			.done(function (data, status, response) {
-				let modalBody = $('#resultsModal').find('.modal-body');
-
+		axios.get('/scrape')
+			.then(function (response, data) {
+				const modal = document.getElementById('resultsModal');
+				const modalBody = modal.querySelector('.modal-body');
+				// let modalBody = $('#resultsModal').find('.modal-body');
+				console.log(response);
 				if (response.status === 200) {
 
-					modalBody.text(`${data.length} articles were added!`);
-					// console.log(`${data.length} articles were added!`);
+					modalBody.textContent = `${response.data.length} articles were added!`;
 				}
 
 			})
-			.fail(function (error) {
+			.catch(function (error) {
 				console.log('Looks like there was a problem: \n', error);
 			});
 	}
