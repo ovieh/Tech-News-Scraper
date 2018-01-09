@@ -1,7 +1,7 @@
 (function () {
 	function scrapeArticles() {
 		axios.get('/scrape')
-			.then(function (response, data) {
+			.then(function (response) {
 				const modal = document.getElementById('resultsModal');
 				const modalBody = modal.querySelector('.modal-body');
 
@@ -35,22 +35,20 @@
 	}
 
 	function unSaveArticle(event) {
-		const articleId = $(event.target).attr('data-id');
+		const articleId = this.getAttribute('data-id');
+		
 		const data = {
 			id: articleId
 		};
 
-		$.ajax({
-			method: 'POST',
-			url: '/articles/unsave',
-			data: data
-		}).done(function (article, status, response) {
-			if (response.status === 200) window.location.reload();
-			else console.log(`unexpected response. response status ${response.status}`);
-		}).fail(function (response) {
-			console.log(`failed to unsave article, response status ${response.status}`);
-		});
-
+		axios.post('/articles/unsave', data)
+			.then(function (response) {
+				console.log(response);
+				if (response.status === 200) window.location.reload();
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 	}
 	//Vestigial code
 	function showComments() {
