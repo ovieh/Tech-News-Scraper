@@ -5,7 +5,7 @@ TODO: Put more badges here.
 
 > Site scraper using Node, Express, Handlebars, Mongoose, and Cheerio. 
 
-TODO: Fill out this long description.
+This app scrapes the New York Times Technology Section and stores article metadata in a Mongo database. Article metadata is served via Express and rendered utilizing Handlebars.
 
 ## Table of Contents
 
