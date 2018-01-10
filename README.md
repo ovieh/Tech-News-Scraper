@@ -18,12 +18,12 @@ TODO: Fill out this long description.
 ## Install
 
 ```
+git clone
+npm install
+npm start
 ```
-
-## Usage
-
-```
-```
+##Screenshot
+![Tech News Scraper Screenshot](/public/img/technewsscraper_screencapture.png)
 
 ## Maintainers
 
