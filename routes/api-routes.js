@@ -5,7 +5,6 @@ const scraper = require('../controller/scraper');
 module.exports = app => {
 
 	const setSaved = (id, saved) => {
-		console.log(id);
 		return Article.findByIdAndUpdate(
 			id, {
 				saved
@@ -16,7 +15,6 @@ module.exports = app => {
 	};
 
 	app.get('/scrape', (req, res) => {
-		// res.json(articles)
 		scraper()
 			.then(data => {
 				Article.create(data, (err, newArticles) => {

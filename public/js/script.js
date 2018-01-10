@@ -7,7 +7,6 @@
 				if (response.status === 200) {
 
 					modalBody.text(`${data.length} articles were added!`);
-					// console.log(`${data.length} articles were added!`);
 				}
 
 			})
@@ -52,18 +51,7 @@
 		});
 
 	}
-	//Vestigial code
-	function showComments() {
-		const articleId = $(event.target).attr('data-id');
-		const headline = $(event.target).attr('data-headline');
 
-		let modalTitle = $('#commentsModal').find('.modal-card-body');
-		modalTitle.attr('data-id', articleId);
-
-		modalTitle.prepend(headline);
-
-
-	}
 	//Todo: Figure out a way to show comment immediately without reload
 	function saveComment(event) {
 		event.preventDefault();
@@ -100,7 +88,6 @@
 			type: 'POST'
 		})
 		.done(function(comment, status, response){
-			$('#commentsModal').removeClass('is-active');
 			window.location.href = '/saved';
 		});
 	}
@@ -110,16 +97,8 @@
 		$('#scrape').on('click', scrapeArticles);
 		$('.save').on('click', saveArticle);
 		$('.unsave').on('click', unSaveArticle);
-		$('.comments').on('click', showComments);
 		$('.delete').on('click', deleteComment);
-
-		$('#close-results-modal').on('click', function(){
-			window.location.href = '/';
-		});
-
-
 		$('.submit-comment').on('click', saveComment);
-
 	}
 
 	document.addEventListener('DOMContentLoaded', pageReady);
