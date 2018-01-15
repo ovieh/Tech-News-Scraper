@@ -22,7 +22,8 @@ git clone
 npm install
 npm start
 ```
-##Screenshot
+## Screenshot
+
 ![Tech News Scraper Screenshot](/public/img/technewsscraper_screencapture.png)
 
 ## Maintainers
