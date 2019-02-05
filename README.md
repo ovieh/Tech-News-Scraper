@@ -18,7 +18,7 @@ TODO: Fill out this long description.
 ## Install
 
 ```
-git clone
+git clone https://github.com/ovieh/Tech-News-Scraper.git
 npm install
 npm start
 ```
