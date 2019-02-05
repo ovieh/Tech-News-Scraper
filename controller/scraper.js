@@ -5,18 +5,18 @@ const parseArticle = article => {
 	const $ = cheerio(article);
 
 	return {
-		headline: $.find('h2.headline').text().trim(),
-		summary: $.find('p.summary').text().trim(),
+		headline: $.find('h2.css-1dq8tca').text().trim(),
+		summary: $.find('p.css-1echdzn').text().trim(),
 		url: $.find('a').attr('href')
 	}
 }
 
 const parseHtml = html => {
 	const $ = cheerio.load(html);
-
 	const articles = [];
-	$('article.story').each((i, e) => articles.push(parseArticle(e)));
+	$('div.css-1cp3ece').each((i, e) => articles.push(parseArticle(e)));
 	console.log("scraped");
+	console.log(articles)
 	return articles;
 }
 

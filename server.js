@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 const DB_URI = process.env.MONGODB_URI || 'mongodb://localhost/mongoscraper';
 mongoose.Promise = global.Promise;
 
-mongoose.connect(DB_URI, {useMongoClient: true});
+mongoose.connect(DB_URI, { useNewUrlParser: true });
 const db = mongoose.connection;
 
 db.on('error', console.error.bind('console','MongoDB connection error'));
